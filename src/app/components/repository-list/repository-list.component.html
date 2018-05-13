@@ -1,3 +1,15 @@
-<p>
-  repository-list works!
-</p>
+<section class="repository-list"
+         fxLayout="row">
+    <ghr-repository-list-item *ngFor="let item of searchResult.items"
+                              [item]="item"
+                              fxFlex.lg="60%"
+                              fxFlexOffset.lg="20%"
+                              fxFlex="70%"
+                              fxFlexOffset="15%"
+                              fxFlex.sm="80%"
+                              fxFlexOffset.sm="10"
+                              fxFlex.xs="98%"
+                              fxFlexOffset.xs="1"
+    ></ghr-repository-list-item>
+
+</section>

@@ -5,7 +5,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.less']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
     @Output()
     onQueryChange = new EventEmitter<string>();
@@ -13,9 +13,6 @@ export class HeaderComponent implements OnInit {
     private updateLater;
 
     constructor() {
-    }
-
-    ngOnInit() {
     }
 
     queryChange(query: string) {

@@ -1,0 +1,79 @@
+@footer-font-size: 14px;
+@padding-between-rows: 16px;
+
+.repository-list-item {
+    // from google
+    box-shadow: 0 -1px 0 #e0e0e0, 0 0 2px rgba(0, 0, 0, .12), 0 2px 4px rgba(0, 0, 0, .24);
+
+    margin-top: 25px;
+    padding: 12px 0 0;
+
+    header {
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+        padding: 0 @padding-between-rows;
+
+        h1 {
+            color: #409986;
+            font-size: 20px;
+            font-weight: 500;
+        }
+        a {
+            color: #676767;
+            font-size: 12px;
+            font-weight: 500;
+            text-decoration: none;
+
+            .mat-icon {
+                display: none;
+                font-size: 14px;
+                height: 14px;
+                position: relative;
+                top: 0;
+            }
+
+            &:hover {
+                .mat-icon {
+                    display: inline-block;
+                }
+            }
+        }
+    }
+
+    summary {
+        color: #676767;
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+        font-size: 13px;
+        margin-top: 12px;
+        padding: 0 @padding-between-rows;
+    }
+
+    footer {
+        border-top: 1px solid #eee;
+        color: #868686;
+        cursor: pointer;
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+        font-size: @footer-font-size - 2px;
+        margin-top: 10px;
+        padding: 6px 16px 8px;
+
+        .mat-icon {
+            font-size: @footer-font-size;
+            height: @footer-font-size;
+            width: @footer-font-size;
+            position: relative;
+            top: 3px;
+        }
+
+        // future features
+        //.stars:hover {
+        //    color: #ff7979;
+        //}
+        //.forks:hover {
+        //    color: #ff7979;
+        //}
+        .issues:hover {
+            transition: color 0.3s ease-in-out;
+            color: #de4c4c;
+        }
+    }
+}

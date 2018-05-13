@@ -1,3 +1,39 @@
-<p>
-  repository-list-item works!
-</p>
+<div class="repository-list-item">
+
+    <header>
+        <h1>
+            {{item.full_name}}
+        </h1>
+        <a href="{{item.html_url}}"
+           target="_blank">
+            {{item.html_url}}
+            <span>
+                <mat-icon>launch</mat-icon>
+            </span>
+        </a>
+    </header>
+
+    <summary>
+        {{item.description}}
+    </summary>
+
+    <footer fxLayout="row">
+
+        <div class="stars"
+             fxFlex="10">
+            <mat-icon>star_rate</mat-icon>
+            <span>{{item.stargazers_count}}</span>
+        </div>
+        <div class="forks"
+             fxFlex="10">
+            <mat-icon>call_split</mat-icon>
+            <span>{{item.forks}}</span>
+        </div>
+        <div class="issues"
+             fxFlex="10">
+            <mat-icon>error</mat-icon>
+            <span>{{item.open_issues_count}}</span>
+        </div>
+        <div fxFlex fxFill></div>
+    </footer>
+</div>
