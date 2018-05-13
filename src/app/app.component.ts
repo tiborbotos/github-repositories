@@ -11,4 +11,8 @@ import { map } from 'rxjs/internal/operators';
 export class AppComponent {
     constructor() {
     }
+
+    onQuery(value: string) {
+        console.log(value);
+    }
 }

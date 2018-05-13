@@ -4,7 +4,11 @@
         <span class="header--title__appname">Repositories</span>
     </span>
     <span class="header--search-field" fxFlex="50%">
-        <input type="text" placeholder="Search repository by name">
+        <mat-icon class="search-icon">search</mat-icon>
+        <input #queryField
+               type="text"
+               placeholder="Search repository by name"
+               (keyup)="queryChange(queryField.value)">
     </span>
     <span fxFlex class="header--creator-info">
         <mat-icon>info</mat-icon>

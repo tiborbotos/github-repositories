@@ -1,4 +1,5 @@
 @search-field-padding: 10px;
+@search-field-left-padding: 50px;
 
 .header {
     position: fixed;
@@ -17,13 +18,19 @@
     &--search-field {
         padding: 0 @search-field-padding;
 
+        .search-icon {
+            position: relative;
+            top: 7px;
+            left: 35px;
+        }
+
         input {
             border: none;
             font-size: 15px;
             height: 36px;
             outline: none;
-            padding: 0 10px;
-            width: calc(100% - (@search-field-padding * 2));
+            padding: 0 @search-field-padding 0 @search-field-left-padding;
+            width: calc(100% - (@search-field-padding  + @search-field-left-padding));
         }
     }
 
