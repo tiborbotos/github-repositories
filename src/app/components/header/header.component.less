@@ -1,0 +1,37 @@
+@search-field-padding: 10px;
+
+.header {
+    position: fixed;
+    z-index: 1;
+
+    &--title {
+        &__github {
+            font-weight: 600;
+            padding-right: 4px;
+        }
+        &__appname {
+            font-weight: 400;
+        }
+    }
+
+    &--search-field {
+        padding: 0 @search-field-padding;
+
+        input {
+            border: none;
+            font-size: 15px;
+            height: 36px;
+            outline: none;
+            padding: 0 10px;
+            width: calc(100% - (@search-field-padding * 2));
+        }
+    }
+
+    &--creator-info {
+        text-align: right;
+
+        mat-icon {
+            padding-top: 6px;
+        }
+    }
+}
