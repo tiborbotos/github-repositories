@@ -11,13 +11,17 @@ import { Observable } from 'rxjs';
     styleUrls: ['./app.component.less']
 })
 export class AppComponent {
-    searchResult: Observable<GithubRepositorySearchResult>;
+    searchResult: GithubRepositorySearchResult = null;
 
     constructor(private repositorySearch: RepositorySearchService) {
     }
 
     onQuery(value: string) {
         console.log(value);
-        // this.searchResult = this.repositorySearch.searchRepository(value);
+        this.repositorySearch
+            .searchRepository(value)
+            .subscribe((result) => {
+                this.searchResult = result;
+            });
     }
 }
