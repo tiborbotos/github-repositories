@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { GithubRepositorySearchResult } from './@types/githubRepository';
-import { map } from 'rxjs/internal/operators';
+import { HttpErrorResponse } from '@angular/common/http';
 import { RepositorySearchService } from './service/search/repository-search.service';
-import { Observable } from 'rxjs';
+import { GithubRepositorySearchResult } from './@types/githubSearchResult';
 
 @Component({
     selector: 'app-root',
@@ -31,7 +29,7 @@ export class AppComponent {
 
     loadMore() {
         this.repositorySearch
-            .loadMore()
+            .loadNextPageOfLastRepositorySearch()
             .subscribe((result) => {
                 this.searchResult.items.push(...result.items);
             }, (error: HttpErrorResponse) => {

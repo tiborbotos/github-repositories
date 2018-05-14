@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { GithubRepository, GithubRepositorySearchResult } from '../../@types/githubRepository';
+import { GithubRepository } from '../../@types/githubRepository';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
+import { GithubIssueSearchResult, GithubRepositorySearchResult } from '../../@types/githubSearchResult';
 
 interface GithubRepositorySearchParameters {
     repositoryName: string;
@@ -14,6 +15,7 @@ interface GithubRepositorySearchParameters {
 })
 export class RepositorySearchService {
     readonly SEARCH_URL = 'https://api.github.com/search/repositories?q=';
+    readonly SEARCH_ISSUES_URL = 'https://api.github.com/search/issues?q=repo:';
 
     private lastSearch: GithubRepositorySearchParameters;
     private searching: boolean;
@@ -21,10 +23,20 @@ export class RepositorySearchService {
     constructor(private http: HttpClient) {
     }
 
+    /**
+     * Is the repository search is currently ongoing
+     * @returns {boolean}
+     */
     isSearching() {
         return this.searching;
     }
 
+    /**
+     * Searches github using REST API by the specified repository name
+     * @param {string} repositoryName name of the repository
+     * @param {number} [page] page index, starting from one, optional
+     * @returns {Observable<GithubRepositorySearchResult>}
+     */
     searchRepository(repositoryName: string, page = 1): Observable<GithubRepositorySearchResult> {
         this.lastSearch = {
             repositoryName,
@@ -47,16 +59,27 @@ export class RepositorySearchService {
     }
 
     /**
-     * Loads the next page of the previous search
+     * Loads the next page of the last repository search
      * @returns {Observable<GithubRepositorySearchResult>}
      */
-    loadMore() {
+    loadNextPageOfLastRepositorySearch() {
         if (!this.lastSearch.page) {
             this.lastSearch.page = 1;
         } else {
             this.lastSearch.page++;
         }
         return this.searchRepository(this.lastSearch.repositoryName, this.lastSearch.page);
+    }
+
+    /**
+     * Loads github issues of a repository using REST API by the specified repository name
+     * @param {string} repositoryName full name of the repository
+     * @param {number} [page] page index, starting from one, optional
+     * @returns {Observable<GithubRepositorySearchResult>}
+     */
+    loadIssues(repositoryName: string, page = 1) {
+        return this.http
+            .get<GithubIssueSearchResult>(`${this.SEARCH_ISSUES_URL}${repositoryName}&page=${page}`);
     }
 
     private limitLength(item: GithubRepository, field: string, maxLength = 150) {

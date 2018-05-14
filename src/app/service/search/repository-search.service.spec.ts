@@ -1,9 +1,9 @@
-import { TestBed, async, inject, getTestBed } from '@angular/core/testing';
+import { TestBed, inject, getTestBed } from '@angular/core/testing';
 
 import { RepositorySearchService } from './repository-search.service';
-import { HttpClient, HttpClientModule, HttpRequest } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { GithubRepositorySearchResult } from '../../@types/githubRepository';
+import { GithubRepositorySearchResult } from '../../@types/githubSearchResult';
 
 describe('RepositorySearchService', () => {
     let injector;
@@ -51,7 +51,7 @@ describe('RepositorySearchService', () => {
             expect(page1.total_count).toBe(dummyResPage1.total_count);
 
             // send second request
-            service.loadMore().subscribe((page2) => {
+            service.loadNextPageOfLastRepositorySearch().subscribe((page2) => {
                 expect(page2.total_count).toBe(dummyResPage2.total_count);
             });
         });

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { GithubRepositorySearchResult, GithubUser } from '../../@types/githubRepository';
+import { GithubRepositorySearchResult } from '../../@types/githubSearchResult';
 
 @Component({
     selector: 'ghr-repository-list',
