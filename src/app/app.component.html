@@ -1,4 +1,4 @@
 <div>
-    <ghr-header (onQueryChange)="onQuery($event)"></ghr-header>
-    <ghr-repository-list [searchResult]="searchResult"></ghr-repository-list>
+    <ghr-header (queryChange)="onQuery($event)"></ghr-header>
+    <ghr-repository-list [searchResult]="searchResult" (loadMore)="loadMore()"></ghr-repository-list>
 </div>

@@ -29,7 +29,7 @@
         </div>
 
         <footer *ngIf="searchResult.items.length < searchResult.total_count">
-            <button mat-raised-button (click)="loadMore()">load more</button>
+            <button mat-raised-button (click)="onLoadMoreClicked()">load more</button>
         </footer>
     </section>
 

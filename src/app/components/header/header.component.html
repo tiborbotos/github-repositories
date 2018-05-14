@@ -8,11 +8,12 @@
 
     <span class="header--search-field"
           fxFlex="60">
-        <mat-icon class="search-icon">search</mat-icon>
+        <mat-icon class="search-icon" *ngIf="!isSearching">search</mat-icon>
+        <mat-icon class="loading-icon spin" *ngIf="isSearching">loop</mat-icon>
         <input #queryField
                type="text"
                placeholder="Search repository by name"
-               (keyup)="queryChange(queryField.value)">
+               (keyup)="onQueryChange(queryField.value)">
     </span>
 
     <span fxFlex class="header--creator-info">

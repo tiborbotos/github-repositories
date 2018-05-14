@@ -17,11 +17,18 @@ export class AppComponent {
     }
 
     onQuery(value: string) {
-        console.log(value);
         this.repositorySearch
             .searchRepository(value)
             .subscribe((result) => {
                 this.searchResult = result;
+            });
+    }
+
+    loadMore() {
+        this.repositorySearch
+            .loadMore()
+            .subscribe((result) => {
+                this.searchResult.items.push(... result.items);
             });
     }
 }

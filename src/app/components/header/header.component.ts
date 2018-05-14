@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { RepositorySearchService } from '../../service/search/repository-search.service';
 
 @Component({
     selector: 'ghr-header',
@@ -8,20 +9,28 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class HeaderComponent {
 
     @Output()
-    onQueryChange = new EventEmitter<string>();
+    queryChange = new EventEmitter<string>();
 
+    private previousValue;
     private updateLater;
 
-    constructor() {
+    constructor(private repositorySearchService: RepositorySearchService) {
     }
 
-    queryChange(query: string) {
-        if (this.updateLater) {
-            clearTimeout(this.updateLater);
-        }
+    get isSearching() {
+        return this.repositorySearchService.isSearching();
+    }
 
-        this.updateLater = setTimeout(() => {
-            this.onQueryChange.emit(query);
-        }, 300);
+    onQueryChange(query: string) {
+        if (query !== this.previousValue) {
+            if (this.updateLater) {
+                clearTimeout(this.updateLater);
+            }
+
+            this.updateLater = setTimeout(() => {
+                this.previousValue = query;
+                this.queryChange.emit(query);
+            }, 300);
+        }
     }
 }

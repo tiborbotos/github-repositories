@@ -19,10 +19,15 @@
     &--search-field {
         padding: 0 @search-field-padding;
 
-        .search-icon {
+        .search-icon, .loading-icon {
             position: relative;
             top: 7px;
             left: 35px;
+        }
+
+        .loading-icon {
+            color: #409986;
+            animation: spin 2s infinite;
         }
 
         input {
@@ -45,6 +50,6 @@
 }
 
 // loading animation
-//@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
-//@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
-//@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }

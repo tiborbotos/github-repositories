@@ -44,5 +44,6 @@ export interface GithubRepository extends Identifiable {
 
 export interface GithubRepositorySearchResult {
     total_count: number;
+    incomplete_results: boolean;
     items: Array<GithubRepository>;
 }

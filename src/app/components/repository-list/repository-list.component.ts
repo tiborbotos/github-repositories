@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { GithubRepositorySearchResult, GithubUser } from '../../@types/githubRepository';
 
 @Component({
@@ -11,6 +11,9 @@ export class RepositoryListComponent {
     @Input()
     searchResult: GithubRepositorySearchResult;
 
+    @Output()
+    loadMore = new EventEmitter<void>();
+
     constructor() {
     }
 
@@ -19,7 +22,7 @@ export class RepositoryListComponent {
             (this.searchResult && this.searchResult.total_count === 0);
     }
 
-    loadMore() {
+    onLoadMoreClicked() {
+        this.loadMore.emit();
     }
-
 }
