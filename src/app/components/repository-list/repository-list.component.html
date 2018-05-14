@@ -1,7 +1,7 @@
 <div class="repository-list"
      fxLayout="column">
 
-    <section class="status-messages" *ngIf="hasStatusMessage">
+    <section class="repository-list--status-messages" *ngIf="hasStatusMessage">
         <div *ngIf="!searchResult">
             Probably the easiest way to search a repository in github. <br>Just type anything up there^
         </div>
@@ -11,26 +11,33 @@
         </div>
     </section>
 
-    <section fxLayout="column"
-             *ngIf="searchResult"
-             class="search-result-container">
+    <section fxLayout="row"
+             *ngIf="searchResult && searchResult.total_count > 0"
+             class="repository-list--result-container">
 
-        <div *ngFor="let item of searchResult.items"
-             class="item">
-            <div fxFlexOffset="15%"
-                 fxFlexOffset.lg="20%"
-                 fxFlexOffset.sm="10"
-                 fxFlexOffset.xs="1"></div>
-            <ghr-repository-list-item [item]="item"
-                                      fxFlex.lg="60%"
-                                      fxFlex="70%"
-                                      fxFlex.sm="80%"
-                                      fxFlex.xs="98%"></ghr-repository-list-item>
+        <div fxFlexOffset="15%"
+             fxFlexOffset.lg="20%"
+             fxFlexOffset.sm="10"
+             fxFlexOffset.xs="1"></div>
+
+        <div fxLayout="column"
+             fxFlex.lg="60%"
+             fxFlex="70%"
+             fxFlex.sm="80%"
+             fxFlex.xs="98%">
+
+            <div class="result-count"
+                 *ngIf="searchResult.total_count > 0">{{formatResultCount()}}</div>
+
+            <div *ngFor="let item of searchResult.items"
+                 class="item">
+                <ghr-repository-list-item [item]="item"></ghr-repository-list-item>
+            </div>
+
+            <footer *ngIf="searchResult.items.length < searchResult.total_count">
+                <button mat-raised-button (click)="onLoadMoreClicked()">load more</button>
+            </footer>
         </div>
-
-        <footer *ngIf="searchResult.items.length < searchResult.total_count">
-            <button mat-raised-button (click)="onLoadMoreClicked()">load more</button>
-        </footer>
     </section>
 
 </div>

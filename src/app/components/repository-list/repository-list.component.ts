@@ -25,4 +25,14 @@ export class RepositoryListComponent {
     onLoadMoreClicked() {
         this.loadMore.emit();
     }
+
+    formatResultCount() {
+        if (this.searchResult && this.searchResult.total_count > 0) {
+            if (this.searchResult.items.length < this.searchResult.total_count) {
+                return `Found ${this.searchResult.total_count} repository, displayed ${this.searchResult.items.length}`;
+            } else {
+                return `Found ${this.searchResult.total_count} repository`;
+            }
+        }
+    }
 }

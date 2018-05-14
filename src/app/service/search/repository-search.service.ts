@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { GithubRepositorySearchResult } from '../../@types/githubRepository';
+import { GithubRepository, GithubRepositorySearchResult } from '../../@types/githubRepository';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
 
@@ -36,6 +36,12 @@ export class RepositorySearchService {
             .get<GithubRepositorySearchResult>(`${this.SEARCH_URL}${repositoryName}&page=${page}`)
             .pipe(map((result) => {
                 this.searching = false;
+                result.items = result.items.map((item) => {
+                    this.limitLength(item, 'name');
+                    this.limitLength(item, 'full_name');
+                    this.limitLength(item, 'description', 512);
+                    return item;
+                });
                 return result;
             }));
     }
@@ -51,5 +57,13 @@ export class RepositorySearchService {
             this.lastSearch.page++;
         }
         return this.searchRepository(this.lastSearch.repositoryName, this.lastSearch.page);
+    }
+
+    private limitLength(item: GithubRepository, field: string, maxLength = 150) {
+        if (item[field] &&
+            item[field].length > maxLength) {
+            item[field] = item[field].substring(0, maxLength - 3) + '...';
+        }
+        return item;
     }
 }

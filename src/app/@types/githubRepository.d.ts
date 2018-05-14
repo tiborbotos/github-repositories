@@ -22,7 +22,7 @@ export interface GithubRepository extends Identifiable {
     private: boolean;
     description: string;
     fork: boolean;
-    html_url: string,
+    html_url: string;
     homepage: string;
     size: number;
     stargazers_count: number;
