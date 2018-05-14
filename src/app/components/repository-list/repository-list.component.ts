@@ -18,8 +18,20 @@ export class RepositoryListComponent {
     }
 
     get hasStatusMessage() {
-        return !this.searchResult ||
-            (this.searchResult && this.searchResult.total_count === 0);
+        return this.isStatusNoResult ||
+            this.isStatusEmptySearchResult;
+    }
+
+    get isStatusNoResult() {
+        return !this.searchResult;
+    }
+
+    get isStatusEmptySearchResult() {
+        return this.searchResult && this.searchResult.total_count === 0;
+    }
+
+    get isStatusIncompleteResult() {
+        return this.searchResult && this.searchResult.incomplete_results;
     }
 
     onLoadMoreClicked() {

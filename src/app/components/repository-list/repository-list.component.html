@@ -1,13 +1,18 @@
 <div class="repository-list"
      fxLayout="column">
 
-    <section class="repository-list--status-messages" *ngIf="hasStatusMessage">
-        <div *ngIf="!searchResult">
-            Probably the easiest way to search a repository in github. <br>Just type anything up there^
+    <section class="repository-list--status-messages"
+             *ngIf="hasStatusMessage">
+        <div *ngIf="isStatusNoResult">
+            Probably the easiest way to search a repository in github.<br>Just type anything up there^
         </div>
 
-        <div *ngIf="searchResult && searchResult.total_count === 0">
-            we couldn't find any repository with this name :/
+        <div *ngIf="isStatusEmptySearchResult">
+            We couldn't find any repository with this name :/
+        </div>
+
+        <div *ngIf="isStatusIncompleteResult">
+            Search result may be incomplete due to github search timeout - probably you should try again a bit later
         </div>
     </section>
 
