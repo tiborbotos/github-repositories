@@ -29,10 +29,15 @@
             <span>{{item.forks}}</span>
         </div>
         <div class="issues"
+             (click)="loadIssues()"
              fxFlex="10">
             <mat-icon>error</mat-icon>
             <span>{{item.open_issues_count}}</span>
         </div>
         <div fxFlex fxFill></div>
     </footer>
+
+    <div *ngIf="issueSearchResult">
+        <ghr-repository-details [issueSearchResult]="issueSearchResult"></ghr-repository-details>
+    </div>
 </div>

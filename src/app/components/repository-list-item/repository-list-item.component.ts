@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { GithubRepository } from '../../@types/githubRepository';
+import { RepositorySearchService } from '../../service/search/repository-search.service';
+import { GithubIssueSearchResult, GithubRepository } from '../../@types/github';
 
 @Component({
     selector: 'ghr-repository-list-item',
@@ -11,7 +12,16 @@ export class RepositoryListItemComponent {
     @Input()
     item: GithubRepository;
 
-    constructor() {
+    issueSearchResult: GithubIssueSearchResult;
+
+    constructor(private repositorySearchService: RepositorySearchService) {
     }
 
+    loadIssues() {
+        this.repositorySearchService
+            .loadIssues(this.item.full_name)
+            .subscribe((issueSearchResult) => {
+                this.issueSearchResult = issueSearchResult;
+            });
+    }
 }

@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { GithubRepository } from '../../@types/githubRepository';
+import { GithubIssueSearchResult, GithubRepository, GithubRepositorySearchResult } from '../../@types/github';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
-import { GithubIssueSearchResult, GithubRepositorySearchResult } from '../../@types/githubSearchResult';
 
 interface GithubRepositorySearchParameters {
     repositoryName: string;

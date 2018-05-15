@@ -1,3 +1,22 @@
-<p>
-  repository-details works!
-</p>
+<div class="repository-issues">
+    <header>
+        {{issueSearchResult.total_count}} issues
+    </header>
+
+    <div>
+        <div *ngFor="let issue of issueSearchResult.items"
+             class="issue">
+            <h1 class="issue--title">
+                <span [ngClass]="{'open': isOpen(issue), 'closed': !isOpen(issue)}"></span>
+                {{issue.title}}
+            </h1>
+
+            <div class="issue--user">
+                <img [src]="issue.user.avatar_url">
+                <a href="{{issue.user.url}}" target="_blank">{{issue.user.login}}</a>
+            </div>
+
+            <div class="issue--body" [innerHTML]="issue.body"></div>
+        </div>
+    </div>
+</div>

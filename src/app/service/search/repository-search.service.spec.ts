@@ -3,7 +3,7 @@ import { TestBed, inject, getTestBed } from '@angular/core/testing';
 import { RepositorySearchService } from './repository-search.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { GithubRepositorySearchResult } from '../../@types/githubSearchResult';
+import { GithubRepositorySearchResult } from '../../@types/github';
 
 describe('RepositorySearchService', () => {
     let injector;

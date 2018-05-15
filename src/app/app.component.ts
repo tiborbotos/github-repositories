@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { RepositorySearchService } from './service/search/repository-search.service';
-import { GithubRepositorySearchResult } from './@types/githubSearchResult';
+import { GithubRepositorySearchResult } from './@types/github';
 
 @Component({
     selector: 'app-root',

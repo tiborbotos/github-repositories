@@ -2,6 +2,13 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RepositoryListItemComponent } from './repository-list-item.component';
 import { MatIconModule } from '@angular/material';
+import { Component, Input } from '@angular/core';
+
+@Component({selector: 'ghr-repository-details', template: ''})
+class RepositoryDetailsStubComponent {
+    @Input()
+    issueSearchResult: any;
+}
 
 describe('RepositoryListItemComponent', () => {
     let component: RepositoryListItemComponent;
@@ -9,7 +16,7 @@ describe('RepositoryListItemComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [RepositoryListItemComponent],
+            declarations: [RepositoryListItemComponent, RepositoryDetailsStubComponent],
             imports: [MatIconModule]
         }).compileComponents();
     }));

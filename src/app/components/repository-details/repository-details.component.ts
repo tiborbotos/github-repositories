@@ -1,16 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { GithubIssue, GithubIssueSearchResult, GithubIssueState } from '../../@types/github';
 
 @Component({
     selector: 'ghr-repository-details',
     templateUrl: './repository-details.component.html',
-    styleUrls: ['./repository-details.component.css']
+    styleUrls: ['./repository-details.component.less']
 })
-export class RepositoryDetailsComponent implements OnInit {
+export class RepositoryDetailsComponent {
+
+    @Input()
+    issueSearchResult: GithubIssueSearchResult;
 
     constructor() {
     }
 
-    ngOnInit() {
+    isOpen(issue: GithubIssue) {
+        return issue.state === GithubIssueState.OPEN;
     }
-
 }

@@ -1,7 +1,6 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './components/header/header.component';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RepositorySearchService } from './service/search/repository-search.service';
 
 @Component({selector: 'ghr-header', template: ''})
