@@ -1,22 +1,33 @@
-<div class="repository-issues">
+<div class="repository-details">
     <header>
         {{issueSearchResult.total_count}} issues
+
+        <span class="repository-details--pagination"
+             *ngIf="paginationDetails.current_page < paginationDetails.max_pages">
+            <button mat-icon-button (click)="loadPreviousPage()"
+                    *ngIf="paginationDetails.current_page > 1">
+                <mat-icon>arrow_left</mat-icon>
+            </button>
+            Page #{{paginationDetails.current_page}} of {{paginationDetails.max_pages}}
+            <button mat-icon-button (click)="loadNextPage()"
+                    *ngIf="paginationDetails.current_page < paginationDetails.max_pages">
+                <mat-icon>arrow_right</mat-icon>
+            </button>
+        </span>
     </header>
 
     <div>
         <div *ngFor="let issue of issueSearchResult.items"
              class="issue">
-            <h1 class="issue--title">
-                <span [ngClass]="{'open': isOpen(issue), 'closed': !isOpen(issue)}"></span>
+            <h1 class="issue--title"
+                [ngClass]="{'open': isOpen(issue), 'closed': !isOpen(issue)}">
+
+                <mat-icon *ngIf="!isOpen(issue)">check_circle_outline</mat-icon>
+                <mat-icon *ngIf="isOpen(issue)">error_outline</mat-icon>
                 {{issue.title}}
             </h1>
 
-            <div class="issue--user">
-                <img [src]="issue.user.avatar_url">
-                <a href="{{issue.user.url}}" target="_blank">{{issue.user.login}}</a>
-            </div>
-
-            <div class="issue--body" [innerHTML]="issue.body"></div>
+            <div class="issue--details" [innerHTML]="formatIssueDetails(issue)"></div>
         </div>
     </div>
 </div>

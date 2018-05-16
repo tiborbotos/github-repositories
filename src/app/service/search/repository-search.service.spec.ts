@@ -3,13 +3,12 @@ import { TestBed, inject, getTestBed } from '@angular/core/testing';
 import { RepositorySearchService } from './repository-search.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { GithubRepositorySearchResult } from '../../@types/github';
+import { GithubRepositorySearchResult } from '../../@types/githubRepository';
 
 describe('RepositorySearchService', () => {
     let injector;
     let service: RepositorySearchService;
     let httpMock: HttpTestingController;
-
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -63,7 +62,6 @@ describe('RepositorySearchService', () => {
         const req2 = httpMock.expectOne(`${service.SEARCH_URL}${searchQuery}&page=2`);
         expect(req2.request.method).toBe('GET');
         req2.flush(dummyResPage2);
-
     });
 
     function getDummyResponse(total_count = 0): GithubRepositorySearchResult {

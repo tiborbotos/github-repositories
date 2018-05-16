@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { GithubIssueSearchResult, GithubRepository, GithubRepositorySearchResult } from '../../@types/github';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
+import { GithubIssueSearchResult } from '../../@types/githubIssue';
+import { GithubRepository, GithubRepositorySearchResult } from '../../@types/githubRepository';
 
 interface GithubRepositorySearchParameters {
     repositoryName: string;
@@ -15,6 +16,7 @@ interface GithubRepositorySearchParameters {
 export class RepositorySearchService {
     readonly SEARCH_URL = 'https://api.github.com/search/repositories?q=';
     readonly SEARCH_ISSUES_URL = 'https://api.github.com/search/issues?q=repo:';
+    readonly maxIssuesDisplayedPerPage = 20;
 
     private lastSearch: GithubRepositorySearchParameters;
     private searching: boolean;
@@ -78,7 +80,8 @@ export class RepositorySearchService {
      */
     loadIssues(repositoryName: string, page = 1) {
         return this.http
-            .get<GithubIssueSearchResult>(`${this.SEARCH_ISSUES_URL}${repositoryName}&page=${page}`);
+            .get<GithubIssueSearchResult>(
+                `${this.SEARCH_ISSUES_URL}${repositoryName}+type:issue&page=${page}&per_page=${this.maxIssuesDisplayedPerPage}`);
     }
 
     private limitLength(item: GithubRepository, field: string, maxLength = 150) {

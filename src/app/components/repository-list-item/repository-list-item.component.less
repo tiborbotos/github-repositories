@@ -1,3 +1,5 @@
+@import "../../../styles/variables.less";
+
 @footer-font-size: 14px;
 @repository-link-font-size: 12px;
 @padding-between-rows: 16px;
@@ -13,12 +15,12 @@
         padding: 0 @padding-between-rows;
 
         h1 {
-            color: #409986;
+            color: @color-primary;
             font-size: 20px;
             font-weight: 500;
         }
         a {
-            color: #676767;
+            color: @color-info;
             font-size: @repository-link-font-size;
             font-weight: 500;
             text-decoration: none;
@@ -40,7 +42,7 @@
     }
 
     .description {
-        color: #676767;
+        color: @color-info;
         font-size: 13px;
         margin-top: 12px;
         padding: 0 @padding-between-rows;
@@ -48,11 +50,11 @@
 
     footer {
         border-top: 1px solid #eee;
-        color: #868686;
+        color: @color-info;
         cursor: pointer;
         font-size: @footer-font-size - 2px;
         margin-top: 10px;
-        padding: 6px 16px 8px;
+        padding: 0 16px;
 
         .mat-icon {
             font-size: @footer-font-size;
@@ -62,16 +64,22 @@
             top: 3px;
         }
 
-        // future features
-        //.stars:hover {
-        //    color: #ff7979;
-        //}
-        //.forks:hover {
-        //    color: #ff7979;
-        //}
+        .repository--details {
+            padding: 8px;
+
+            &:hover {
+                color: @color-primary;
+            }
+
+            &__selected {
+                background: @color-selected-color;
+                font-weight: 500;
+            }
+        }
+
         .issues:hover {
             transition: color 0.3s ease-in-out;
-            color: #de4c4c;
+            color: @color-issues;
         }
     }
 }

@@ -3,21 +3,35 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RepositoryListItemComponent } from './repository-list-item.component';
 import { MatIconModule } from '@angular/material';
 import { Component, Input } from '@angular/core';
+import { RepositorySearchService } from '../../service/search/repository-search.service';
+import { Observable, Subscriber } from 'rxjs';
 
 @Component({selector: 'ghr-repository-details', template: ''})
 class RepositoryDetailsStubComponent {
     @Input()
     issueSearchResult: any;
+
+    @Input()
+    paginationDetails: any;
+}
+
+class RepositorySearchStub {
+    maxIssuesDisplayedPerPage: 2;
+    loadIssues() {}
 }
 
 describe('RepositoryListItemComponent', () => {
     let component: RepositoryListItemComponent;
     let fixture: ComponentFixture<RepositoryListItemComponent>;
+    let injectedSearchService: RepositorySearchService;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [RepositoryListItemComponent, RepositoryDetailsStubComponent],
-            imports: [MatIconModule]
+            imports: [MatIconModule],
+            providers: [
+                {provide: RepositorySearchService, useClass: RepositorySearchStub}
+            ]
         }).compileComponents();
     }));
 
@@ -52,6 +66,7 @@ describe('RepositoryListItemComponent', () => {
             score: 8
         };
         fixture.detectChanges();
+        injectedSearchService = TestBed.get(RepositorySearchService);
     });
 
     it('should create', () => {
@@ -63,5 +78,23 @@ describe('RepositoryListItemComponent', () => {
         expect(text).toContain(component.item.full_name);
         expect(text).toContain(component.item.html_url);
         expect(text).toContain(component.item.description);
+    });
+
+    it('should load issues', () => {
+        const dummyResult = {
+            total_count: 1
+        };
+        // spyOnProperty(injectedSearchService, 'maxIssuesDisplayedPerPage').and.returnValue(5);
+        const loadIssuesSpy = spyOn(injectedSearchService, 'loadIssues')
+            .and
+            .returnValue(Observable.create((observer) => {
+                observer.next(dummyResult);
+                observer.complete();
+            }));
+
+        component.loadIssues();
+
+        expect(loadIssuesSpy).toHaveBeenCalled();
+
     });
 });
