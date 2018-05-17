@@ -31,8 +31,17 @@
              fxFlex.sm="80%"
              fxFlex.xs="98%">
 
+            <ghr-repositories-chart [searchResult]="searchResult"
+                                    *ngIf="chartVisible"></ghr-repositories-chart>
+
             <div class="result-count"
-                 *ngIf="searchResult.total_count > 0">{{formatResultCount()}}</div>
+                 *ngIf="searchResult.total_count > 0">
+                <span>{{formatResultCount()}}</span>
+
+                <button *ngIf="!chartVisible"
+                        mat-flat-button
+                        (click)="showChart()">visualize</button>
+            </div>
 
             <div *ngFor="let item of searchResult.items"
                  class="item">

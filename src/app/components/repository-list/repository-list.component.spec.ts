@@ -9,13 +9,19 @@ class RepositoryListItemStubComponent {
     item: any;
 }
 
+@Component({selector: 'ghr-repositories-chart', template: ''})
+class RepositoriesChartStubComponent {
+    @Input()
+    item: any;
+}
+
 describe('RepositoryListComponent', () => {
     let component: RepositoryListComponent;
     let fixture: ComponentFixture<RepositoryListComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [RepositoryListComponent, RepositoryListItemStubComponent]
+            declarations: [RepositoryListComponent, RepositoryListItemStubComponent, RepositoriesChartStubComponent]
         }).compileComponents();
     }));
 

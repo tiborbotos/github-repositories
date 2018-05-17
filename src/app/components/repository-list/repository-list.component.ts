@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { GithubRepositorySearchResult } from '../../@types/githubRepository';
 
 @Component({
@@ -8,13 +8,24 @@ import { GithubRepositorySearchResult } from '../../@types/githubRepository';
 })
 export class RepositoryListComponent {
 
-    @Input()
-    searchResult: GithubRepositorySearchResult;
-
     @Output()
     loadMore = new EventEmitter<void>();
 
+    chartVisible = false;
+
+    private _searchResult: GithubRepositorySearchResult;
+
     constructor() {
+    }
+
+    @Input()
+    set searchResult(value: GithubRepositorySearchResult) {
+        this._searchResult = value;
+        this.chartVisible = false;
+    }
+
+    get searchResult() {
+        return this._searchResult;
     }
 
     get hasStatusMessage() {
@@ -46,5 +57,9 @@ export class RepositoryListComponent {
                 return `Found ${this.searchResult.total_count} repository`;
             }
         }
+    }
+
+    showChart() {
+        this.chartVisible = true;
     }
 }

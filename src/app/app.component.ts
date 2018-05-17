@@ -13,6 +13,7 @@ import { FormattingUtilsService } from './service/formattingUtils/formatting-uti
 export class AppComponent {
     searchResult: GithubRepositorySearchResult = null;
     error: HttpErrorResponse = null;
+
     private snackBar: MatSnackBarRef<SimpleSnackBar>;
 
     constructor(private repositorySearch: RepositorySearchService,

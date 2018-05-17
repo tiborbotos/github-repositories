@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RepositoryListComponent } from './components/repository-list/repository-list.component';
 import { RepositoryListItemComponent } from './components/repository-list-item/repository-list-item.component';
 import { RepositoryDetailsComponent } from './components/repository-details/repository-details.component';
+import { RepositoriesChartComponent } from './components/repositories-chart/repositories-chart.component';
 
 @NgModule({
     declarations: [
@@ -17,7 +18,8 @@ import { RepositoryDetailsComponent } from './components/repository-details/repo
         HeaderComponent,
         RepositoryListComponent,
         RepositoryListItemComponent,
-        RepositoryDetailsComponent
+        RepositoryDetailsComponent,
+        RepositoriesChartComponent
     ],
     imports: [
         BrowserModule,
