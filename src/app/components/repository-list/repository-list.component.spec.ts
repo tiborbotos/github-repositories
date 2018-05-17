@@ -12,7 +12,7 @@ class RepositoryListItemStubComponent {
 @Component({selector: 'ghr-repositories-chart', template: ''})
 class RepositoriesChartStubComponent {
     @Input()
-    item: any;
+    searchResult: any;
 }
 
 describe('RepositoryListComponent', () => {

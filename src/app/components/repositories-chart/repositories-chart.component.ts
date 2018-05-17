@@ -20,6 +20,7 @@ export class RepositoriesChartComponent implements OnInit {
 
     @Input()
     searchResult: GithubRepositorySearchResult;
+
     chart: Chart;
 
     constructor() {
