@@ -1,25 +1,32 @@
 @import "../../../styles/variables.less";
 
 .repository-details {
+    background: #fff;
+    border-left: 1px solid @color-selected;
+    border-right: 1px solid @color-selected;
+    border-bottom: 1px solid @color-selected;
 
     header {
-        background: @color-selected-color;
-        color: #de4c4c;
+        background: @color-selected;
+        color: #fff;
         font-size: 12px;
         padding: 10px 16px 8px;
         position: relative;
 
-        .repository-details--pagination {
-            display: inline-block;
-            position: absolute;
-            right: 0;
-            top: -5px;
-        }
+    }
+    &--pagination {
+        display: inline-block;
+        position: absolute;
+        right: 0;
+        top: -5px;
+    }
+    &--pagination-info {
+        color: @color-lighter-gray;
     }
 
     .issue {
         padding: 8px 16px;
-        border-bottom: 1px solid @color-light-gray;
+        border-bottom: 1px solid @color-lighter-gray;
 
         &--title {
             font-weight: 500;

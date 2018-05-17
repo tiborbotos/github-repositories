@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { GithubEnums } from '../../@types/github';
 import { GithubIssueSearchResult, GithubIssue } from '../../@types/githubIssue';
 import GithubIssueState = GithubEnums.GithubIssueState;
+import { DateFormatterService } from '../../service/dateFormatter/date-formatter.service';
 
 @Component({
     selector: 'ghr-repository-details',
@@ -19,7 +20,7 @@ export class RepositoryDetailsComponent {
     @Output()
     loadPage = new EventEmitter<number>();
 
-    constructor() {
+    constructor(private dateFormatter: DateFormatterService) {
     }
 
     isOpen(issue: GithubIssue) {
@@ -27,7 +28,12 @@ export class RepositoryDetailsComponent {
     }
 
     formatIssueDetails(issue: GithubIssue) {
-        return `#${issue.number} by ${issue.user.login}`;
+        const created = `#${issue.number} - Created ${this.dateFormatter.toReadableDate(issue.created_at)} by ${issue.user.login}`;
+        if (this.isOpen(issue)) {
+            return created;
+        } else {
+            return `${created}, closed ${this.dateFormatter.toReadableDate(issue.closed_at)}`;
+        }
     }
 
     loadPreviousPage() {
