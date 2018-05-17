@@ -33,4 +33,8 @@ export class HeaderComponent {
             }, 300);
         }
     }
+
+    showInfo() {
+        window.alert(`Angular 6 experimental project, written by Tibor Botos - https://github.com/tiborbotos/github-repositories`);
+    }
 }
