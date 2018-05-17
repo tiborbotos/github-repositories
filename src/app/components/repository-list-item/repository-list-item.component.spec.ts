@@ -13,6 +13,9 @@ class RepositoryDetailsStubComponent {
 
     @Input()
     paginationDetails: any;
+
+    @Input()
+    openIssuesCount: any;
 }
 
 class RepositorySearchStub {

@@ -21,19 +21,25 @@
         <div class="repository--details details--stars"
              fxFlex="18">
             <mat-icon>star_rate</mat-icon>
-            <span>{{item.stargazers_count}}</span>
+            <span>{{largeIntegerToReadable(item.stargazers_count)}}</span>
         </div>
         <div class="repository--details details--forks"
              fxFlex="18">
             <mat-icon>call_split</mat-icon>
-            <span>{{item.forks}}</span>
+            <span>{{largeIntegerToReadable(item.forks)}}</span>
         </div>
         <div class="repository--details details--issues"
              [ngClass]="{'repository--details__selected': issuesLoaded}"
              (click)="loadIssues()"
              fxFlex="18">
             <mat-icon>error</mat-icon>
-            <span>{{item.open_issues_count}}</span>
+            <span>{{largeIntegerToReadable(item.open_issues_count)}}</span>
+
+            <span class="repository--details--close"
+                  (click)="closeIssues($event)"
+                  *ngIf="issuesLoaded">
+                <mat-icon>cancel</mat-icon>
+            </span>
         </div>
         <div fxFlex fxFill></div>
     </footer>
@@ -41,6 +47,7 @@
     <div *ngIf="issuesLoaded">
         <ghr-repository-details [issueSearchResult]="issueSearchResult"
                                 [paginationDetails]="paginationDetails"
+                                [openIssuesCount]="item.open_issues_count"
                                 (loadPage)="loadPage($event)"></ghr-repository-details>
     </div>
 </div>

@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { GithubEnums } from '../../@types/github';
 import { GithubIssueSearchResult, GithubIssue } from '../../@types/githubIssue';
 import GithubIssueState = GithubEnums.GithubIssueState;
-import { DateFormatterService } from '../../service/dateFormatter/date-formatter.service';
+import { FormattingUtilsService } from '../../service/formattingUtils/formatting-utils.service';
 
 @Component({
     selector: 'ghr-repository-details',
@@ -17,10 +17,23 @@ export class RepositoryDetailsComponent {
     @Input()
     paginationDetails: PaginationDetails;
 
+    @Input()
+    openIssuesCount: number;
+
     @Output()
     loadPage = new EventEmitter<number>();
 
-    constructor(private dateFormatter: DateFormatterService) {
+    constructor(private formattingUtilsService: FormattingUtilsService) {
+    }
+
+    formatIssuesCount() {
+        if (this.issueSearchResult.total_count > 0) {
+            const closed = this.issueSearchResult.total_count - this.openIssuesCount;
+            return `${this.openIssuesCount} open ${this.formattingUtilsService.pluralIfNeeded(this.openIssuesCount, 'issues', 'issue')},`
+                + ` ${closed} closed of ${this.issueSearchResult.total_count}`;
+        } else {
+            return `This repository doesn't have any issue`;
+        }
     }
 
     isOpen(issue: GithubIssue) {
@@ -28,11 +41,11 @@ export class RepositoryDetailsComponent {
     }
 
     formatIssueDetails(issue: GithubIssue) {
-        const created = `#${issue.number} - Created ${this.dateFormatter.toReadableDate(issue.created_at)} by ${issue.user.login}`;
+        const created = `#${issue.number} - Created ${this.formattingUtilsService.toReadableDate(issue.created_at)} by ${issue.user.login}`;
         if (this.isOpen(issue)) {
             return created;
         } else {
-            return `${created}, closed ${this.dateFormatter.toReadableDate(issue.closed_at)}`;
+            return `${created}, closed ${this.formattingUtilsService.toReadableDate(issue.closed_at)}`;
         }
     }
 

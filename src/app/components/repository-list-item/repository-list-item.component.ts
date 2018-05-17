@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { RepositorySearchService } from '../../service/search/repository-search.service';
 import { GithubIssueSearchResult } from '../../@types/githubIssue';
 import { GithubRepository } from '../../@types/githubRepository';
+import { FormattingUtilsService } from '../../service/formattingUtils/formatting-utils.service';
 
 @Component({
     selector: 'ghr-repository-list-item',
@@ -17,13 +18,23 @@ export class RepositoryListItemComponent {
     issuesLoaded = false;
     paginationDetails: PaginationDetails;
 
-    constructor(private repositorySearchService: RepositorySearchService) {
+    constructor(private repositorySearchService: RepositorySearchService,
+                private formattingUtils: FormattingUtilsService) {
+    }
+
+    closeIssues($event) {
+        $event.stopPropagation();
+        this.issuesLoaded = false;
+        this.issueSearchResult = null;
+        this.paginationDetails = null;
     }
 
     loadIssues() {
-        this.repositorySearchService
-            .loadIssues(this.item.full_name)
-            .subscribe(this.updateSearchResult.bind(this));
+        if (!this.issuesLoaded) {
+            this.repositorySearchService
+                .loadIssues(this.item.full_name)
+                .subscribe(this.updateSearchResult.bind(this));
+        }
     }
 
     loadPage(page: number) {
@@ -32,6 +43,10 @@ export class RepositoryListItemComponent {
             .subscribe((issueSearchResult) => {
                 this.updateSearchResult(issueSearchResult, page);
             });
+    }
+
+    largeIntegerToReadable(num: number) {
+        return this.formattingUtils.largeIntegerToReadable(num);
     }
 
     private updateSearchResult(issueSearchResult: GithubIssueSearchResult,

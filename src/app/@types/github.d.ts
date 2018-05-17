@@ -4,8 +4,8 @@ export interface Identifiable {
 
 declare namespace GithubEnums {
     const enum GithubIssueState {
-        OPEN = 'Open',
-        CLOSED = 'Closed'
+        OPEN = 'open',
+        CLOSED = 'closed'
     }
 
     const enum GithubIssueAuthorAssociation {

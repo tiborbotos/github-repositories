@@ -65,6 +65,7 @@
 
         .repository--details {
             padding: 8px;
+            transition: color 0.3s ease-in-out;
 
             &:hover {
                 color: @color-primary;
@@ -72,18 +73,28 @@
 
             &__selected {
                 background: @color-selected;
-                color: #fff;
+                color: @color-lighter-gray;
                 font-weight: 500;
 
                 &:hover {
-                    color: #efefef;
+                    color: #fff;
                 }
             }
-        }
 
-        .issues:hover {
-            transition: color 0.3s ease-in-out;
-            color: @color-issues;
+            &--close {
+                color: @color-lighter-gray;
+                float: right;
+
+                .mat-icon {
+                    font-size: 13px;
+                    height: 13px;
+                    width: 13px;
+                }
+
+                &:hover {
+                    color: #fff;
+                }
+            }
         }
     }
 }

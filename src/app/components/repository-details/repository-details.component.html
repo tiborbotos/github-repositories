@@ -1,9 +1,9 @@
 <div class="repository-details">
     <header>
-        <span>{{issueSearchResult.total_count}} issues</span>
+        <span>{{formatIssuesCount()}}</span>
 
         <span class="repository-details--pagination"
-             *ngIf="paginationDetails.current_page < paginationDetails.max_pages">
+             *ngIf="paginationDetails.max_pages > 1">
             <button mat-icon-button (click)="loadPreviousPage()"
                     *ngIf="paginationDetails.current_page > 1">
                 <mat-icon>arrow_left</mat-icon>
@@ -23,7 +23,7 @@
                 [ngClass]="{'open': isOpen(issue), 'closed': !isOpen(issue)}">
 
                 <mat-icon *ngIf="!isOpen(issue)">check_circle_outline</mat-icon>
-                <mat-icon *ngIf="isOpen(issue)">error_outline</mat-icon>
+                <mat-icon *ngIf="isOpen(issue)">error</mat-icon>
                 {{issue.title}}
             </h1>
 
