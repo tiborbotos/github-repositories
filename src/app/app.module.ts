@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './components/header/header.component';
-import { MatButtonModule, MatIconModule, MatToolbarModule } from '@angular/material';
+import { MatButtonModule, MatIconModule, MatSnackBar, MatSnackBarModule, MatToolbarModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
 import { RepositoryListComponent } from './components/repository-list/repository-list.component';
@@ -26,7 +26,8 @@ import { RepositoryDetailsComponent } from './components/repository-details/repo
         HttpClientModule,
         MatButtonModule,
         MatIconModule,
-        MatToolbarModule
+        MatToolbarModule,
+        MatSnackBarModule
     ],
     providers: [],
     bootstrap: [AppComponent]

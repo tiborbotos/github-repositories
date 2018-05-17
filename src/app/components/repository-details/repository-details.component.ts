@@ -20,6 +20,9 @@ export class RepositoryDetailsComponent {
     @Input()
     openIssuesCount: number;
 
+    @Input()
+    disablePagination: boolean;
+
     @Output()
     loadPage = new EventEmitter<number>();
 

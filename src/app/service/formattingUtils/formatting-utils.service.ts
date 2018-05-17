@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
@@ -51,6 +52,19 @@ export class FormattingUtilsService {
             return Math.floor(num / 1000) + 'k';
         } else {
             return Math.floor(num / 1000000) + 'm';
+        }
+    }
+
+    formatHttpError(error: HttpErrorResponse) {
+        const status = error.status;
+        if (status === 0) {
+            return 'Request timed out, try again later';
+        } else if (status >= 300 && status < 500) {
+            return `Error (${error.status}): ${error.statusText}`;
+        } else if (status === 500) {
+            return 'Github cannot handle your request at the moment, try again later';
+        } else {
+            return `Unknown error happened: ${error.message}`;
         }
     }
 }

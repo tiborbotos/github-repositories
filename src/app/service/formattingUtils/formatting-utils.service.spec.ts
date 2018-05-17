@@ -1,6 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { FormattingUtilsService } from './formatting-utils.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 describe('FormattingUtilsService', () => {
     beforeEach(() => {
@@ -91,5 +92,33 @@ describe('FormattingUtilsService', () => {
         expect(service.largeIntegerToReadable(numMedium)).toBe('5k');
         expect(service.largeIntegerToReadable(numLarge)).toBe('24k');
         expect(service.largeIntegerToReadable(numGoogol)).toBe('124m');
+    }));
+
+    it('should properly format http errors', inject([FormattingUtilsService], (service: FormattingUtilsService) => {
+        const error0 = {
+                status: 0
+            } as HttpErrorResponse,
+            error1 = {
+                status: 500
+            } as HttpErrorResponse,
+            error2 = {
+                status: 404,
+                statusText: 'Url not found'
+            } as HttpErrorResponse,
+            error3 = {
+                status: 300,
+                statusText: 'Redirect issue'
+            } as HttpErrorResponse,
+            error4 = {
+                status: 600,
+                statusText: 'Unknown',
+                message: 'Strange error'
+            } as HttpErrorResponse;
+
+        expect(service.formatHttpError(error0)).toBe('Request timed out, try again later');
+        expect(service.formatHttpError(error1)).toBe('Github cannot handle your request at the moment, try again later');
+        expect(service.formatHttpError(error2)).toBe('Error (404): Url not found');
+        expect(service.formatHttpError(error3)).toBe('Error (300): Redirect issue');
+        expect(service.formatHttpError(error4)).toBe('Unknown error happened: Strange error');
     }));
 });

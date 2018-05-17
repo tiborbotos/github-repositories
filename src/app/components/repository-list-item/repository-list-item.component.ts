@@ -3,6 +3,8 @@ import { RepositorySearchService } from '../../service/search/repository-search.
 import { GithubIssueSearchResult } from '../../@types/githubIssue';
 import { GithubRepository } from '../../@types/githubRepository';
 import { FormattingUtilsService } from '../../service/formattingUtils/formatting-utils.service';
+import { MatSnackBar } from '@angular/material';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'ghr-repository-list-item',
@@ -15,34 +17,39 @@ export class RepositoryListItemComponent {
     item: GithubRepository;
 
     issueSearchResult: GithubIssueSearchResult;
+    isLoading = false;
     issuesLoaded = false;
     paginationDetails: PaginationDetails;
 
     constructor(private repositorySearchService: RepositorySearchService,
-                private formattingUtils: FormattingUtilsService) {
+                private formattingUtils: FormattingUtilsService,
+                private snackBarService: MatSnackBar) {
     }
 
     closeIssues($event) {
         $event.stopPropagation();
         this.issuesLoaded = false;
+        this.isLoading = false;
         this.issueSearchResult = null;
         this.paginationDetails = null;
     }
 
     loadIssues() {
         if (!this.issuesLoaded) {
+            this.isLoading = true;
             this.repositorySearchService
                 .loadIssues(this.item.full_name)
-                .subscribe(this.updateSearchResult.bind(this));
+                .subscribe(this.updateSearchResult.bind(this), this.handleError.bind(this));
         }
     }
 
     loadPage(page: number) {
+        this.isLoading = true;
         this.repositorySearchService
             .loadIssues(this.item.full_name, page)
             .subscribe((issueSearchResult) => {
                 this.updateSearchResult(issueSearchResult, page);
-            });
+            }, this.handleError.bind(this));
     }
 
     largeIntegerToReadable(num: number) {
@@ -53,6 +60,7 @@ export class RepositoryListItemComponent {
                                requestedPage: number) {
         this.issueSearchResult = issueSearchResult;
         this.issuesLoaded = true;
+        this.isLoading = false;
         this.updatePaginationDetails(issueSearchResult, requestedPage);
     }
 
@@ -64,5 +72,9 @@ export class RepositoryListItemComponent {
             max_pages,
             current_page: requestedPage
         };
+    }
+
+    private handleError(error: HttpErrorResponse) {
+        this.snackBarService.open(this.formattingUtils.formatHttpError(error), 'Dismiss');
     }
 }

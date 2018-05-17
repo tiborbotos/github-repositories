@@ -1,10 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RepositoryListItemComponent } from './repository-list-item.component';
-import { MatIconModule } from '@angular/material';
+import { MatIconModule, MatSnackBar } from '@angular/material';
 import { Component, Input } from '@angular/core';
 import { RepositorySearchService } from '../../service/search/repository-search.service';
 import { Observable, Subscriber } from 'rxjs';
+import { FormattingUtilsService } from '../../service/formattingUtils/formatting-utils.service';
 
 @Component({selector: 'ghr-repository-details', template: ''})
 class RepositoryDetailsStubComponent {
@@ -16,11 +17,25 @@ class RepositoryDetailsStubComponent {
 
     @Input()
     openIssuesCount: any;
+
+    @Input()
+    disablePagination: any;
 }
 
 class RepositorySearchStub {
     maxIssuesDisplayedPerPage: 2;
     loadIssues() {}
+}
+
+class FormattingUtilsServiceStub {
+    largeIntegerToReadable() {}
+    formatHttpError() {
+    }
+}
+
+class MatSnackBarStub {
+    open() {
+    }
 }
 
 describe('RepositoryListItemComponent', () => {
@@ -33,7 +48,9 @@ describe('RepositoryListItemComponent', () => {
             declarations: [RepositoryListItemComponent, RepositoryDetailsStubComponent],
             imports: [MatIconModule],
             providers: [
-                {provide: RepositorySearchService, useClass: RepositorySearchStub}
+                {provide: RepositorySearchService, useClass: RepositorySearchStub},
+                {provide: FormattingUtilsService, useClass: FormattingUtilsServiceStub},
+                {provide: MatSnackBar, useClass: MatSnackBarStub}
             ]
         }).compileComponents();
     }));
@@ -87,7 +104,7 @@ describe('RepositoryListItemComponent', () => {
         const dummyResult = {
             total_count: 1
         };
-        // spyOnProperty(injectedSearchService, 'maxIssuesDisplayedPerPage').and.returnValue(5);
+
         const loadIssuesSpy = spyOn(injectedSearchService, 'loadIssues')
             .and
             .returnValue(Observable.create((observer) => {
@@ -98,6 +115,5 @@ describe('RepositoryListItemComponent', () => {
         component.loadIssues();
 
         expect(loadIssuesSpy).toHaveBeenCalled();
-
     });
 });

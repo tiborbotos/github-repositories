@@ -102,6 +102,7 @@ function getOpenIssue() {
     return {
         id: 1,
         url: '',
+        html_url: '',
         title: '',
         user: {
             id: 1,

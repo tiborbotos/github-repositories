@@ -4,12 +4,15 @@
 
         <span class="repository-details--pagination"
              *ngIf="paginationDetails.max_pages > 1">
-            <button mat-icon-button (click)="loadPreviousPage()"
+            <button mat-icon-button
+                    (click)="loadPreviousPage()"
+                    [disabled]="disablePagination"
                     *ngIf="paginationDetails.current_page > 1">
                 <mat-icon>arrow_left</mat-icon>
             </button>
             <span class="repository-details--pagination-info">Page #{{paginationDetails.current_page}} of {{paginationDetails.max_pages}}</span>
             <button mat-icon-button (click)="loadNextPage()"
+                    [disabled]="disablePagination"
                     *ngIf="paginationDetails.current_page < paginationDetails.max_pages">
                 <mat-icon>arrow_right</mat-icon>
             </button>
@@ -24,7 +27,7 @@
 
                 <mat-icon *ngIf="!isOpen(issue)">check_circle_outline</mat-icon>
                 <mat-icon *ngIf="isOpen(issue)">error</mat-icon>
-                {{issue.title}}
+                <a [href]="issue.html_url" target="_blank">{{issue.title}}</a>
             </h1>
 
             <div class="issue--details" [innerHTML]="formatIssueDetails(issue)"></div>

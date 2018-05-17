@@ -48,6 +48,7 @@
         <ghr-repository-details [issueSearchResult]="issueSearchResult"
                                 [paginationDetails]="paginationDetails"
                                 [openIssuesCount]="item.open_issues_count"
+                                [disablePagination]="isLoading"
                                 (loadPage)="loadPage($event)"></ghr-repository-details>
     </div>
 </div>

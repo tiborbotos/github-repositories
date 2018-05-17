@@ -9,6 +9,7 @@ export interface GithubIssueLabel extends Identifiable {
 
 export interface GithubIssue extends Identifiable {
     url: string;
+    html_url: string;
     title: string;
     user: GithubUser;
     state: GithubEnums.GithubIssueState;
